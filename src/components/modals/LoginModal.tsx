@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Modal, TextField } from "@material-ui/core";
+import { Button, Modal, TextField } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 interface LoginModalProps {
   open: boolean;
@@ -16,6 +17,7 @@ function LoginModal({ open, onClose }: LoginModalProps) {
           margin: "auto",
           marginTop: "30vh",
           padding: "48px 1.5em",
+          paddingBottom: "24px"
         }}
       >
         <form>
@@ -27,6 +29,12 @@ function LoginModal({ open, onClose }: LoginModalProps) {
             fullWidth
             style={{ marginTop: 16 }}
           />
+          <Button variant="contained" color="primary" style={{marginTop: 16}} fullWidth>
+            로그인
+          </Button>
+          <div style={{marginTop: 16}}>
+            아이디가 없으신가요? <Link to="/signup" onClick={onClose}>회원가입</Link>
+          </div>
         </form>
       </div>
     </Modal>
