@@ -1,7 +1,8 @@
 import React from "react";
+import Layout from "./components/UI/Layout";
 
 function App() {
-  return <div className="App"></div>;
+  return <Layout>dgds</Layout>;
 }
 
 export default App;
