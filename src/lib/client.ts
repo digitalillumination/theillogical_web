@@ -6,11 +6,11 @@ function getClient() {
     transformResponse: [
       (data, headers) => {
         const json = JSON.parse(data);
-        if (data.success !== false || (headers.statusCode && (headers.statusCode >= 200 && headers.statusCode < 300))) {
+        if (json.success !== false || (headers.statusCode && (headers.statusCode >= 200 && headers.statusCode < 300))) {
           return json;
         }
 
-        const error:any = new Error(json.message);
+        const error: any = new Error(json.message);
         error.code = data.code;
 
         throw error;
