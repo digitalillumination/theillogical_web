@@ -4,12 +4,14 @@ import { Switch, Route } from "react-router-dom";
 import { hot } from "react-hot-loader";
 
 import MainPage from "./pages/MainPage";
+import SignUpPage from "./pages/SignUpPage";
 
 function App() {
   return (
     <Layout>
       <Switch>
         <Route path="/" exact component={MainPage} />
+        <Route path="/signup" exact component={SignUpPage} />
       </Switch>
     </Layout>
   );
