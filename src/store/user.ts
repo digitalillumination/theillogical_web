@@ -21,7 +21,6 @@ const UserSlice = createSlice({
   initialState,
   reducers: {
     setToken(state, action: PayloadAction<string>) {
-      console.log(action)
       window && window.sessionStorage && window.sessionStorage.setItem("token", action.payload);
       state.user = getData(action.payload);
     },

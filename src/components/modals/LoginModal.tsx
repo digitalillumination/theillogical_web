@@ -23,7 +23,6 @@ function LoginModal({ open, onClose }: LoginModalProps) {
   function submit({userId, password}: any) {
     getClient().post('/api/v1/user/issue', {userId, password})
       .then(({data}) => {
-        console.log(data.data);
         dispatch(UserSlice.actions.setToken(data.data));
       }).catch(e => {
         alert(e.message);
