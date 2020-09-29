@@ -23,7 +23,7 @@ function useCreateFileForm(
   const ref = useRef<HTMLInputElement | null>(null);
   const fileElement = <FileComponent {...props} innerRef={ref} />
   const formElement = (
-    <form onSubmit={e => {e.preventDefault(); onSubmit();}}>
+    <form onSubmit={e => {e.preventDefault(); onSubmit();}} style={{padding: '.5em'}}>
       {fileElement}
       <Button type="submit" color="secondary" variant="contained">
         업로드
