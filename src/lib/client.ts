@@ -5,6 +5,9 @@ const baseURL = process.env.REACT_API_URL || undefined;
 function getClient() {
   return axios.create({
     baseURL,
+    headers: {
+      'Authorization': window && window.sessionStorage && window.sessionStorage.getItem("token") ? "Bearer " + window.sessionStorage.getItem("token") : undefined
+    },
     transformResponse: [
       (data, headers) => {
         const json = JSON.parse(data);
