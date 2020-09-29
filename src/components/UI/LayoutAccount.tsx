@@ -11,11 +11,15 @@ function LayoutAccount() {
   const { modal, openModal } = useLoginModal();
   const history = useHistory();
   const user = useSelector((state: RootState) => state.user.user);
+  const [anchor, setAnchor] = useState<HTMLElement | null>(null);
 
   return (
     <>
-      <IconButton aria-label="account or login" color="primary">
-        <AccountCircle onClick={!user ? openModal : () => setOpen(true)} />
+      <IconButton aria-label="account or login" color="primary" onClick={!user ? openModal : (e) => {
+        setAnchor(e.currentTarget)
+        setOpen(true);
+      }} >
+        <AccountCircle/>
       </IconButton>
       {user && (
         <Menu
@@ -25,6 +29,7 @@ function LayoutAccount() {
             vertical: 'top',
             horizontal: 'right',
           }}
+          anchorEl={anchor}
           keepMounted
           transformOrigin={{
             vertical: 'top',
