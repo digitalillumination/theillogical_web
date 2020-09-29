@@ -1,8 +1,10 @@
 import axios from "axios";
 
+const baseURL = process.env.REACT_API_URL || undefined;
+
 function getClient() {
   return axios.create({
-    baseURL: process.env.REACT_API_URL || undefined,
+    baseURL,
     transformResponse: [
       (data, headers) => {
         const json = JSON.parse(data);
@@ -19,4 +21,9 @@ function getClient() {
   });
 }
 
+export function getFullURL(path: string) {
+  if (!baseURL) return path;
+
+  return new URL(path, baseURL).toString();
+}
 export default getClient;

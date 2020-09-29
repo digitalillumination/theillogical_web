@@ -5,6 +5,7 @@ import { hot } from "react-hot-loader";
 
 import MainPage from "./pages/MainPage";
 import SignUpPage from "./pages/SignUpPage";
+import UserPage from "./pages/UserPage";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Switch>
         <Route path="/" exact component={MainPage} />
         <Route path="/signup" exact component={SignUpPage} />
+        <Route path="/user/:id" exact component={UserPage} />
       </Switch>
     </Layout>
   );
