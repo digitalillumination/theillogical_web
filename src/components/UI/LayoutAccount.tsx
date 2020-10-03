@@ -35,7 +35,8 @@ function LayoutAccount() {
             vertical: 'top',
             horizontal: 'right',
           }}>
-          <MenuItem onClick={() => history.push("/user/"+user.id)}>내 계정 보기</MenuItem>
+          <MenuItem onClick={() => history.push("/user/" + user.id)}>내 계정 보기</MenuItem>
+          <MenuItem onClick={() => history.push('/upload')}>작업물 올리기</MenuItem>
         </Menu>
       )}
       {!user && modal}
