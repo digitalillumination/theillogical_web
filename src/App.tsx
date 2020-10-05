@@ -6,7 +6,7 @@ import { hot } from "react-hot-loader";
 import MainPage from "./pages/MainPage";
 import SignUpPage from "./pages/SignUpPage";
 import UserPage from "./pages/UserPage";
-import UploadPage from "./lib/UploadPage";
+import UploadPage from "./pages/UploadPage";
 
 function App() {
   return (
