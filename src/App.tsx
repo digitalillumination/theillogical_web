@@ -7,6 +7,7 @@ import MainPage from "./pages/MainPage";
 import SignUpPage from "./pages/SignUpPage";
 import UserPage from "./pages/UserPage";
 import UploadPage from "./pages/UploadPage";
+import AlbumPage from "./pages/AlbumPage";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/" exact component={MainPage} />
         <Route path="/signup" exact component={SignUpPage} />
         <Route path="/user/:id" exact component={UserPage} />
+        <Route path="/album/:id" exact component={AlbumPage} />
         <Route path="/upload" exact component={UploadPage} />
       </Switch>
     </Layout>
