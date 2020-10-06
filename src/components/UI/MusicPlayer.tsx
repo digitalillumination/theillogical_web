@@ -6,6 +6,7 @@ import usePlaylistManager from "../../hooks/usePlaylistManager";
 import { getFullURL } from "../../lib/client";
 import usePlayerManager from "../../hooks/usePlayerManager";
 import PlaylistModal from "../modals/PlaylistModal";
+import PlayerSeekBar from "./PlayerSeekBar";
 
 function MusicPlayer() {
   const ref = useRef<HTMLAudioElement|null>(null);
@@ -16,9 +17,7 @@ function MusicPlayer() {
   return (
     <Player image={currentPlaying?.data?.albumImage}>
       <PlaylistModal open={open} onClose={() => setOpen(false)} />
-      <div className="percentage-bar">
-        <div className="progress" style={{width: `${player.percent * 100}%`}}/>
-      </div>
+      <PlayerSeekBar percent={player.percent} seekByRatio={player.seekByRatio}/>
       <audio src={currentPlaying && currentPlaying.isFetching ? getFullURL(`/api/v1/album/${currentPlaying.albumId}/${currentPlaying.index}/music`) : undefined} autoPlay ref={ref} />
       <div className="album-cover" />
       <div className="music">
@@ -64,21 +63,6 @@ const Player = styled.div<{image?: string}>`
   background: white;
   align-items: center;
   
-  .percentage-bar {
-    position: absolute;
-    top: -5px;
-    height: 5px;
-    left: 0;
-    right: 0;
-    background: #EAEAEA;
-    .progress {
-      background: blue;
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-    }
-  }
   .album-cover {
     width:50px;
     height: 50px;

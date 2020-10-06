@@ -53,6 +53,11 @@ function usePlayerManager(ref: MutableRefObject<HTMLAudioElement | null>) {
       ref.current.pause();
     }
   }, [ref]);
+  const seekByRatio = useCallback((ratio: number) => {
+    if (!ref.current) return;
+
+    ref.current.currentTime = ref.current.duration * ratio;
+  }, [ref]);
   function formatTime(sec: number) {
     let time = Math.round(sec);
     let texts = [];
@@ -78,6 +83,7 @@ function usePlayerManager(ref: MutableRefObject<HTMLAudioElement | null>) {
     percent,
     isPlaying,
     formatTime,
+    seekByRatio,
     pauseOrPlay,
   };
 }
