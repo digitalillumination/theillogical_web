@@ -7,10 +7,11 @@ import usePlaylistManager from "../../hooks/usePlaylistManager";
 
 interface MusicListItemProps {
   albumId: string,
+  albumLength: number,
   index: number,
   title: string
 }
-function MusicListItem({albumId, index, title}: MusicListItemProps) {
+function MusicListItem({albumId, index, title, albumLength}: MusicListItemProps) {
   const [hovering, setHovering] = useState(false);
   const playlist = usePlaylistManager();
 
@@ -21,7 +22,7 @@ function MusicListItem({albumId, index, title}: MusicListItemProps) {
       <div className="actions">
         {hovering && (
           <>
-            <IconButton>
+            <IconButton onClick={() => playlist.replaceQueueFromAlbum(albumId, albumLength, index - 1)}>
               <PlayArrow />
             </IconButton>
             <IconButton onClick={() => playlist.addQueue(albumId, index)}>

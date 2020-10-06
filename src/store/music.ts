@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import getClient from "../lib/client";
 import { toast } from "react-toastify";
 
@@ -34,7 +34,7 @@ export const addMusicToQueue = createAsyncThunk("music/ADD_MUSIC_TO_QUEUE",  ({a
       return ({ ...data, index });
     })
     .catch(e => {
-      alert(e.message);
+      toast.error(e.message);
       return e;
     });
 });
@@ -42,10 +42,18 @@ export const addMusicToQueueBulk = createAsyncThunk("music/ADD_MUSIC_TO_QUEUE_BU
   return Promise.all(songs.map(({albumId, index}) => getClient().get(`/api/v1/album/${albumId}/${index}`)))
     .then(responses => responses.map(({data: {data}}, i) => ({...data, index: songs[i].index})))
     .catch(e => {
-      alert(e.message)
+      toast.error(e.message)
       return e;
     });
 });
+export const replaceMusicQueue = createAsyncThunk("music/REPLACE_QUEUE", (songs: {albumId: string, index: number}[]) => {
+  return Promise.all(songs.map(({albumId, index}) => getClient().get(`/api/v1/album/${albumId}/${index}`)))
+    .then(responses => responses.map(({data: {data}}, i) => ({...data, index: songs[i].index})))
+    .catch(e => {
+      toast.error(e.message);
+      return e;
+    })
+})
 
 function getMusicFromPayload(payload: any) {
   const {albumId, albumTitle, index, by, title, albumImage } = payload;
@@ -78,6 +86,9 @@ const MusicSlice = createSlice({
       if (state.currentPlayingIndex === undefined) return;
 
       state.currentPlayingIndex = state.currentPlayingIndex > 0 ? state.currentPlayingIndex - 1 : state.currentPlayingIndex;
+    },
+    setCurrentPlayingIndex(state, action: PayloadAction<number>) {
+      state.currentPlayingIndex = action.payload;
     }
   },
   extraReducers: {
@@ -90,6 +101,10 @@ const MusicSlice = createSlice({
         const music = getMusicFromPayload(payload);
         state.queue.push(music);
       }
+    },
+    [replaceMusicQueue.fulfilled as any]: (state, action) => {
+      state.queue = action.payload.map((payload: any) => getMusicFromPayload(payload));
+      state.currentPlayingIndex = 0;
     }
   }
 });

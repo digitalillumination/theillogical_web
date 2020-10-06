@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import MusicSlice, { addMusicToQueue, addMusicToQueueBulk } from "../store/music";
+import MusicSlice, { addMusicToQueue, addMusicToQueueBulk, replaceMusicQueue } from "../store/music";
 import { RootState } from "../store";
 
 function usePlaylistManager() {
@@ -14,9 +14,31 @@ function usePlaylistManager() {
     }))
   }, [dispatch]);
 
+  const playByIndex = useCallback((index: number) => {
+    dispatch(MusicSlice.actions.setCurrentPlayingIndex(index));
+  }, [dispatch]);
   const addQueueBalk = useCallback((songs: {albumId: string, index: number}[]) => {
     dispatch(addMusicToQueueBulk(songs));
   }, [dispatch]);
+
+  const replaceQueue = useCallback((songs: {albumId: string, index: number}[]) => {
+    dispatch(replaceMusicQueue(songs));
+  }, [dispatch]);
+
+  const replaceQueueFromAlbum = useCallback((albumId: string, length: number, startFrom?: number) => {
+    (dispatch(replaceMusicQueue(
+      new Array(length)
+        .fill(0)
+        .map((_, i) => i)
+        .map((index) => ({albumId, index: index + 1}))
+    )) as any)
+      .then(() => {
+        if (startFrom) {
+          playByIndex(startFrom);
+        }
+      });
+
+  }, [dispatch, playByIndex]);
 
   const next = useCallback(() => dispatch(MusicSlice.actions.next()), [dispatch]);
   const prev = useCallback(() => dispatch(MusicSlice.actions.prev()), [dispatch]);
@@ -28,8 +50,10 @@ function usePlaylistManager() {
     next,
     prev,
     queue,
-    currentPlaying
-
+    replaceQueue,
+    replaceQueueFromAlbum,
+    currentPlaying,
+    playByIndex
   }
 }
 

@@ -24,7 +24,7 @@ function AlbumPage({match: {params: {id}}}: RouteComponentProps<{id: string}>) {
         </div>
       </header>
       <article className="musics">
-        {data.songTitles.map((title: string, i: number) => <MusicListItem index={i+1} albumId={id} title={title} key={title} />)}
+        {data.songTitles.map((title: string, i: number) => <MusicListItem index={i+1} albumId={id} title={title} key={title} albumLength={data.songTitles.length} />)}
       </article>
     </Wrap>
   )
