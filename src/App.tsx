@@ -2,6 +2,8 @@ import React from "react";
 import Layout from "./components/UI/Layout";
 import { Switch, Route } from "react-router-dom";
 import { hot } from "react-hot-loader";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 import MainPage from "./pages/MainPage";
 import SignUpPage from "./pages/SignUpPage";
@@ -19,6 +21,7 @@ function App() {
         <Route path="/album/:id" exact component={AlbumPage} />
         <Route path="/upload" exact component={UploadPage} />
       </Switch>
+      <ToastContainer />
     </Layout>
   );
 }

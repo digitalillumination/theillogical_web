@@ -15,12 +15,15 @@ function LayoutAccount() {
 
   return (
     <>
-      <IconButton aria-label="account or login" color="primary" onClick={!user ? openModal : (e) => {
-        setAnchor(e.currentTarget)
-        setOpen(true);
-      }} >
-        <AccountCircle/>
-      </IconButton>
+      {!user
+        ? <div style={{color: 'blue', cursor: 'pointer'}} onClick={openModal}>로그인</div>
+        : <IconButton aria-label="account" color="primary" onClick={(e) => {
+          setAnchor(e.currentTarget)
+          setOpen(true);
+        }} >
+          <AccountCircle/>
+        </IconButton>
+      }
       {user && (
         <Menu
           open={open}

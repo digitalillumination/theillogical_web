@@ -3,6 +3,7 @@ import { AppBar, Toolbar } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import Logo from "./Logo";
 import LayoutAccount from "./LayoutAccount";
+import MusicPlayer from "./MusicPlayer";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -23,7 +24,10 @@ function Layout({ children }: LayoutProps) {
           </Toolbar>
         </AppBar>
       </header>
-      <main>{children}</main>
+      <main style={{paddingBottom: 100}}>
+        {children}
+      </main>
+      <MusicPlayer />
     </>
   );
 }

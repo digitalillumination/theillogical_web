@@ -11,7 +11,7 @@ function AlbumList() {
   if (isLoading) return <div>로드 중...</div>;
 
   return (
-    <div style={{display: 'flex'}}>
+    <div style={{display: 'flex', flexWrap: 'wrap'}}>
       {data.map((data: any) => (
         <Album key={data._id} {...data} />
       ))}
