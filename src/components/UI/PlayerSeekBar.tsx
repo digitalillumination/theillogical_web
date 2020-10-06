@@ -8,8 +8,6 @@ function PlayerSeekBar({percent, seekByRatio}: {percent: number, seekByRatio(rat
     if (!ref.current) return;
 
     const ratio = e.clientX / ref.current.clientWidth;
-    console.log(e.clientX, ref.current.clientWidth)
-
     seekByRatio(ratio);
   }
   return (
