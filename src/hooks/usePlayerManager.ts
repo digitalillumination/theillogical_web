@@ -9,7 +9,6 @@ function usePlayerManager(ref: MutableRefObject<HTMLAudioElement | null>) {
 
   const percent = useMemo(() => currentTime / duration, [duration, currentTime]);
 
-  console.log(isPlaying);
   useEffect(() => {
     if (!ref.current) return;
 

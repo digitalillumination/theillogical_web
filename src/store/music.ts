@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import getClient from "../lib/client";
 import { toast } from "react-toastify";
 
-interface Music {
+export interface Music {
   albumId: string,
   index: number,
   isFetching: boolean,

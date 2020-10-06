@@ -1,18 +1,21 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import { IconButton } from "@material-ui/core";
 import { PlayArrow, QueueMusic, SkipNext, SkipPrevious, Pause } from "@material-ui/icons";
 import usePlaylistManager from "../../hooks/usePlaylistManager";
 import { getFullURL } from "../../lib/client";
 import usePlayerManager from "../../hooks/usePlayerManager";
+import PlaylistModal from "../modals/PlaylistModal";
 
 function MusicPlayer() {
   const ref = useRef<HTMLAudioElement|null>(null);
+  const [open, setOpen] = useState(false);
   const {currentPlaying, prev, next} = usePlaylistManager();
   const player = usePlayerManager(ref);
 
   return (
     <Player image={currentPlaying?.data?.albumImage}>
+      <PlaylistModal open={open} onClose={() => setOpen(false)} />
       <div className="percentage-bar">
         <div className="progress" style={{width: `${player.percent * 100}%`}}/>
       </div>
@@ -42,7 +45,7 @@ function MusicPlayer() {
         <IconButton onClick={player.pauseOrPlay}>
           {player.isPlaying ? <Pause /> : <PlayArrow />}
         </IconButton>
-        <IconButton>
+        <IconButton onClick={() => setOpen(true)}>
           <QueueMusic />
         </IconButton>
       </div>
